@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: controlpanel-ingress
+  namespace: control-plane
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.projectname.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: controlplane
+                port:
+                  number: 80
