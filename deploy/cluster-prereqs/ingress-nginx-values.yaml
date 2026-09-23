@@ -2,6 +2,14 @@ controller:
   hostPort:
     enabled: true
 
+  # Single-node kind cluster + hostPort means two controller pods can never both bind
+  # 80/443 at once, so a RollingUpdate deadlocks (new pod stuck Pending waiting for the
+  # old one to free the ports, old one never torn down because the new one isn't Ready).
+  # Recreate avoids that by killing the old pod before scheduling the new one.
+  updateStrategy:
+    type: Recreate
+    rollingUpdate: null
+
   service:
     type: NodePort
 

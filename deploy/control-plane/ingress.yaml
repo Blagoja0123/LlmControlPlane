@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: api.projectname.local
+    - host: api.llmcontrol.local
       http:
         paths:
           - path: /api
